@@ -4,14 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import starwu.lite.canal.notify.CanalObserverApi;
+import starwu.lite.dao.dblog.api.CanalDblogHandleApi;
+import starwu.lite.dao.dblog.factory.CanalDblogFactory;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
 
-/*@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Component
-@Slf4j*/
-public class CanalSubscribeSubscribeApi /*implements CanalObserverApi*/ {
+@Slf4j
+public class CanalSubscribeSubscribeApi implements CanalObserverApi {
 
-    /*private final CanalDblogFactory factory;
+    private final CanalDblogFactory factory;
     @Override
     public boolean isReceived(CanalDataBean canalDataBean) {
         return true;
@@ -23,5 +25,5 @@ public class CanalSubscribeSubscribeApi /*implements CanalObserverApi*/ {
             CanalDblogHandleApi api = factory.get(table);
             api.handle(canalDataBean);
 
-    }*/
+    }
 }

@@ -29,9 +29,7 @@ public abstract class FactoryEntryApi<K,V extends FactoryHandleApi> {
 		}
 		Class<V> cls  = getDefaultCls();
 		V v = SpringUtil.getBean(cls);
-		globalMap.put(key,v);
-		return v;
-		//return fillGlobalMap(key,getDefault());
+		return fillGlobalMap(key,getDefault());
 	}
 
 	private V fillGlobalMap(K key,V value){

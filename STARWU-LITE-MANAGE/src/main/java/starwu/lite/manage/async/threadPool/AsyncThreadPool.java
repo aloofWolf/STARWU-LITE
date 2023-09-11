@@ -28,6 +28,10 @@ public class AsyncThreadPool {
 		for(AsyncItemConfig item : config.getItems()){
 			register(item);
 		}
+		String name = "default";
+		AsyncItemConfig item = new AsyncItemConfig();
+		item.setName(name);
+		addThreadPoolTaskExecutor(item);
 	}
 
 	public void addThreadPoolTaskExecutor(AsyncItemConfig item){
@@ -36,6 +40,10 @@ public class AsyncThreadPool {
 			return;
 		}
 		register(item);
+	}
+
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor(String name){
+		return beanFactory.getBean(name, ThreadPoolTaskExecutor.class);
 	}
 
 	private void register(AsyncItemConfig item){

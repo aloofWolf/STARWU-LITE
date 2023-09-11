@@ -10,8 +10,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import starwu.lite.canal.notify.CanalSubject;
+import starwu.lite.manage.async.threadPool.AsyncThreadPool;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
 import starwu.lite.metadata.config.canal.CanalConfig;
 import starwu.lite.metadata.config.canal.CanalItemConfig;
@@ -34,15 +36,14 @@ public class TcpListener {
 
     private final CanalSubject subject;
 
-    private ExecutorService executor;
+    private final AsyncThreadPool asyncThreadPool;
+
+    private ThreadPoolTaskExecutor executor;
 
     @Async
     public void start(){
 
-        executor = new ThreadPoolExecutor(config.getHandleDataCorePoolSize()
-                ,config.getHandleDataMaxPoolSize()
-                ,config.getHandleDataKeepAliveSeconds()
-                , TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadPoolExecutor.AbortPolicy());
+        this.executor = asyncThreadPool.getThreadPoolTaskExecutor(config.getHandleAsyncThreadName());
 
         if(config.isTcpEnabled()){
             log.info("开始监听canal");
@@ -93,9 +94,9 @@ public class TcpListener {
                     Thread.sleep(1000);
                     continue;
                 }
-               /* executor.execute(() -> {
+                executor.execute(() -> {
                     processData(entries);
-                });*/
+                });
                 processData(entries);
                 connector.ack(batchId);
             }catch(Exception e){

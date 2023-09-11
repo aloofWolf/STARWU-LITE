@@ -6,8 +6,6 @@ import starwu.lite.metadata.bean.canal.CanalDataBean;
 import starwu.lite.metadata.config.canal.CanalConfig;
 import starwu.lite.design.observer.SubjectApi;
 
-import java.util.concurrent.*;
-
 @RequiredArgsConstructor
 @Component
 public class CanalSubject extends SubjectApi<CanalDataBean> {
@@ -15,11 +13,7 @@ public class CanalSubject extends SubjectApi<CanalDataBean> {
     private final CanalConfig config;
 
     @Override
-    public ExecutorService getExecutorService() {
-        ExecutorService executor = new ThreadPoolExecutor(config.getNotifyDataCorePoolSize()
-                ,config.getNotifyDataMaxPoolSize()
-                ,config.getNotifyDataKeepAliveSeconds()
-                , TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadPoolExecutor.AbortPolicy());
-        return executor;
+    public String getAsyncThreadName() {
+        return config.getNotifyDataAsyncThreadName();
     }
 }

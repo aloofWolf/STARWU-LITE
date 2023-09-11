@@ -25,13 +25,6 @@ public class LogHandleCore {
     public void init(){
         AsyncItemConfig item = new AsyncItemConfig();
         item.setName("recordLog");
-        item.setCorePoolSize(6);
-        item.setMaxPoolSize(6);
-        item.setQueueCapacity(Integer.MAX_VALUE);
-        item.setKeepAliveSeconds(3);
-        item.setThreadNamePrefix("recordLog111-");
-        item.setWaitForTasksToCompleteOnShutdown(0);
-        item.setRejectedExecutionHandler(3);
         asyncThreadPool.addThreadPoolTaskExecutor(item);
     }
 

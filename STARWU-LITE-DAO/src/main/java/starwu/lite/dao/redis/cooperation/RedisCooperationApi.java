@@ -14,7 +14,6 @@ public interface RedisCooperationApi<ID,RESULT> {
 
     public RESULT convertToResult(Object object);
 
-
     public RESULT getTtryLockFailResult(ID identifier);
 
     public int redisTimeOut();

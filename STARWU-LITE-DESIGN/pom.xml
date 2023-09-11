@@ -20,6 +20,10 @@
         </dependency>
         <dependency>
             <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-MANAGE</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
             <artifactId>STARWU-LITE-METADATA</artifactId>
         </dependency>
     </dependencies>

@@ -1,20 +1,23 @@
 package starwu.lite.design.observer;
 
 import lombok.extern.slf4j.Slf4j;
-import starwu.lite.metadata.exception.AsyncException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import starwu.lite.manage.async.threadPool.AsyncThreadPool;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 
 @Slf4j
 public abstract class SubjectApi<T> {
 
     private List<ObserverApi> globalList = new ArrayList<>();
 
-    private ExecutorService executor;
+    private ThreadPoolTaskExecutor executor;
+
+    @Autowired
+    private AsyncThreadPool asyncThreadPool;
 
 
     protected <V extends ObserverApi> void  regist(V v){
@@ -23,16 +26,19 @@ public abstract class SubjectApi<T> {
 
     @PostConstruct
     public void init(){
-        this.executor = getExecutorService();
+        this.executor = asyncThreadPool.getThreadPoolTaskExecutor(getAsyncThreadName());
 
     }
 
-    public void notify(T t) throws InterruptedException {
+    public void notify(T t)  {
         for(ObserverApi v : globalList){
-            v.received(t);
+            executor.execute(() -> {
+                v.received(t);
+            });
+
         }
 
     }
 
-    public abstract ExecutorService getExecutorService();
+    public abstract String getAsyncThreadName();
 }

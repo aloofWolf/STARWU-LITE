@@ -29,31 +29,7 @@ public class CanalConfig {
 
     private long timeOut = 50000; // 从canal拉取数据的超时时间
 
-    private int handleDataCorePoolSize = 5;
+    private String handleAsyncThreadName = "default";
 
-    private int handleDataMaxPoolSize = 10;
-
-    private int handleDataQueueCapacity = Integer.MAX_VALUE;
-
-    private int handleDataKeepAliveSeconds = 100;
-
-    private String handleDataThreadNamePrefix = "";
-
-    private int handleDataWaitForTasksToCompleteOnShutdown = 1;
-
-    private int handleDataRejectedExecutionHandler = 1;
-
-    private int notifyDataCorePoolSize = 5;
-
-    private int notifyDataMaxPoolSize = 10;
-
-    private int notifyDataQueueCapacity = Integer.MAX_VALUE;
-
-    private int notifyDataKeepAliveSeconds = 100;
-
-    private String notifyDataThreadNamePrefix = "";
-
-    private int notifyDataWaitForTasksToCompleteOnShutdown = 1;
-
-    private int notifyDataRejectedExecutionHandler = 1;
+    private String notifyDataAsyncThreadName = "default";
 }

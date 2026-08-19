@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>starwu</groupId>
+    <artifactId>STARWU-LITE</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>STARWU-LITE-UTIL</module>
+        <module>STARWU-LITE-PLUS</module>
+        <module>STARWU-LITE-DESIGN</module>
+        <module>STARWU-LITE-CANAL</module>
+        <module>STARWU-LITE-ORM</module>
+        <module>STARWU-LITE-WEB</module>
+        <module>STARWU-LITE-DISTRIBUTED</module>
+        <module>STARWU-LITE-METADATA</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring-boot.version>2.7.14</spring-boot.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <canal.version>1.1.7</canal.version>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
+        <redisson.version>3.15.5</redisson.version>
+        <UserAgentUtils.version>1.21</UserAgentUtils.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+        <knife4j-spring-ui.version>2.0.9</knife4j-spring-ui.version>
+        <swagger-bootstrap-ui.version>1.9.4</swagger-bootstrap-ui.version>
+        <starwu.lite.version>1.0.0</starwu.lite.version>
+
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--mybatisPlus依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--canal依赖 -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.client</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.protocol</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+
+            <!--redisson分布式锁 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- 用于解析 HTTP 请求头中 User-Agent 字符串的 Java 工具库，能够识别客户端的浏览器类型、版本、操作系统、设备类型等信息-->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${UserAgentUtils.version}</version>
+            </dependency>
+
+            <!-- swagger-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-ui</artifactId>
+                <version>${knife4j-spring-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger-bootstrap-ui.version}</version>
+            </dependency>
+
+            <!-- 内部依赖-->
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-CANAL</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-DESIGN</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-DISTRIBUTED</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-METADATA</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-ORM</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-PLUS</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-UTIL</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>starwu</groupId>
+                <artifactId>STARWU-LITE-WEB</artifactId>
+                <version>${starwu.lite.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <!--spring-boot-dependencies中的依赖开始 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+    </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>maven-releases</name>
+            <url>http://47.94.253.0:8081/repository/maven-releases/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://47.94.253.0:8081/repository/maven-snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

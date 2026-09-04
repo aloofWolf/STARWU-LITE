@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>starwu</groupId>
+        <artifactId>STARWU-LITE</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>STARWU-LITE-ALL-MOUDLES</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-CANAL</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-DESIGN</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-DISTRIBUTED</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-METADATA</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-ORM</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-PLUS</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-UTIL</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-WEB</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

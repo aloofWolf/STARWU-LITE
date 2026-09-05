@@ -26,17 +26,29 @@ public class AsyncThreadPool {
 	@PostConstruct
 	public void init(){
 		for(AsyncItemConfig item : config.getItems()){
-			ThreadPoolTaskExecutor t = new ThreadPoolTaskExecutor();
-			t.setCorePoolSize(item.getCorePoolSize());
-			t.setMaxPoolSize(item.getMaxPoolSize());
-			t.setQueueCapacity(item.getQueueCapacity());
-			t.setKeepAliveSeconds(item.getKeepAliveSeconds());
-			t.setWaitForTasksToCompleteOnShutdown(EnumPlus.getByID(BooleanType.class, item.getWaitForTasksToCompleteOnShutdown()).isFlag());
-			t.setThreadNamePrefix("baseThread-"+item.getThreadNamePrefix());
-			t.setRejectedExecutionHandler(EnumPlus.getByID(ThreadPoolRejectedExecutionHandlerEnum.class, item.getRejectedExecutionHandler()).getHandler());
-			t.initialize();
-			beanFactory.registerSingleton(item.getName(), t);
+			register(item);
 		}
+	}
+
+	public void addThreadPoolTaskExecutor(AsyncItemConfig item){
+		if(beanFactory.containsSingleton(item.getName())){
+			log.info("异步调用配置:{},已在配置文件中配置，读取配置文件中的配置",item.getName());
+			return;
+		}
+		register(item);
+	}
+
+	private void register(AsyncItemConfig item){
+		ThreadPoolTaskExecutor t = new ThreadPoolTaskExecutor();
+		t.setCorePoolSize(item.getCorePoolSize());
+		t.setMaxPoolSize(item.getMaxPoolSize());
+		t.setQueueCapacity(item.getQueueCapacity());
+		t.setKeepAliveSeconds(item.getKeepAliveSeconds());
+		t.setWaitForTasksToCompleteOnShutdown(EnumPlus.getByID(BooleanType.class, item.getWaitForTasksToCompleteOnShutdown()).isFlag());
+		t.setThreadNamePrefix("baseThread-"+item.getThreadNamePrefix());
+		t.setRejectedExecutionHandler(EnumPlus.getByID(ThreadPoolRejectedExecutionHandlerEnum.class, item.getRejectedExecutionHandler()).getHandler());
+		t.initialize();
+		beanFactory.registerSingleton(item.getName(), t);
 	}
 
 }

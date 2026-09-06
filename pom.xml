@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>STARWU-LITE-UTIL</module>
-        <module>STARWU-LITE-PLUS</module>
+        <module>STARWU-LITE-MANAGE</module>
         <module>STARWU-LITE-DESIGN</module>
         <module>STARWU-LITE-CANAL</module>
         <module>STARWU-LITE-ORM</module>
@@ -135,7 +135,7 @@
             </dependency>
             <dependency>
                 <groupId>starwu</groupId>
-                <artifactId>STARWU-LITE-PLUS</artifactId>
+                <artifactId>STARWU-LITE-MANAGE</artifactId>
                 <version>${starwu.lite.version}</version>
             </dependency>
             <dependency>

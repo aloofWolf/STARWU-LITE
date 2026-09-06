@@ -3,7 +3,7 @@ package starwu.lite.web.interceptor.outer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import starwu.lite.plus.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalPlus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

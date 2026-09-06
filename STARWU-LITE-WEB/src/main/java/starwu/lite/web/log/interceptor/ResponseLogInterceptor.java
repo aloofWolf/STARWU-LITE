@@ -2,7 +2,6 @@ package starwu.lite.web.log.interceptor;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -15,7 +14,7 @@ import starwu.lite.metadata.bean.distributed.session.UserSession;
 import starwu.lite.metadata.bean.web.ResponseBean;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.plus.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalPlus;
 import starwu.lite.web.log.handle.LogHandleCore;
 
 import java.util.Date;

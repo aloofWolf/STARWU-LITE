@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.plus.snowflake.SnowFlakePlus;
-import starwu.lite.plus.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalPlus;
 import starwu.lite.util.EnvironmentUtil;
+import starwu.lite.util.SnowflakeIdGenerator;
+import starwu.lite.util.StringUtil;
 import starwu.lite.web.util.HttpServletUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,8 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
 		log.info("请求报文:{}", requestParam);
 		RequestLog requestLog = new RequestLog();
-		String code = SnowFlakePlus.getSerialNumber("REQ_");
+		long serialNumber = SnowflakeIdGenerator.nextId();
+		String code = StringUtil.appendWithUnSafe("REQ-", serialNumber);
 		requestLog.setCode(code).setStartTime(new Date()).setClientType(userAgent.getOperatingSystem().getDeviceType().getName())
 				.setOsType(userAgent.getOperatingSystem().getName()).setClientIp(request.getRemoteAddr())
 				.setClientPort(request.getRemotePort()).setRequestMethod(request.getMethod())

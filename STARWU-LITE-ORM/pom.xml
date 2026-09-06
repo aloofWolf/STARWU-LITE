@@ -58,7 +58,7 @@
         </dependency>
         <dependency>
             <groupId>starwu</groupId>
-            <artifactId>STARWU-LITE-PLUS</artifactId>
+            <artifactId>STARWU-LITE-MANAGE</artifactId>
         </dependency>
     </dependencies>
 

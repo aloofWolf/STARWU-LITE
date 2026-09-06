@@ -14,7 +14,7 @@ import starwu.lite.metadata.bean.distributed.session.UserSession;
 import starwu.lite.metadata.config.orm.OrmConfig;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.plus.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalPlus;
 
 import java.sql.Statement;
 import java.util.Date;

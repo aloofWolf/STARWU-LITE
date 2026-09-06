@@ -3,7 +3,6 @@ package starwu.lite.metadata.config.distributed.session;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import starwu.lite.metadata.config.plus.async.AsyncItemConfig;
 
 import java.util.ArrayList;
 import java.util.List;

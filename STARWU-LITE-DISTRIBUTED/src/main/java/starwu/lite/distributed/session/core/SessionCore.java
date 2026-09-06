@@ -4,17 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
-import starwu.lite.metadata.config.distributed.session.SessionExcludeUrlConfig;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.exception.SessionTimeOutException;
 import starwu.lite.distributed.session.dao.SessionDao;
-import starwu.lite.plus.snowflake.SnowFlakePlus;
-import starwu.lite.plus.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalPlus;
 import starwu.lite.metadata.config.distributed.session.SessionConfig;
+import starwu.lite.util.SnowflakeIdGenerator;
+import starwu.lite.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -27,7 +26,8 @@ public class SessionCore {
 
 
 	public <T> String createSession(Long userId, String userName, T obj, HttpServletResponse response) {
-		String token = SnowFlakePlus.getSerialNumber("SESSION-");
+		long serialNumber = SnowflakeIdGenerator.nextId();
+		String token = StringUtil.appendWithUnSafe("TOKEN-", serialNumber);
 		UserSession<T> session = new UserSession<T>(userId, userName, obj);
 		long begin = System.currentTimeMillis();
 		dao.saveSession(token, session,sessionConfig.getSessionPeriod());

@@ -1,12 +1,12 @@
-package starwu.lite.plus.async.threadPool;
+package starwu.lite.manage.async.threadPool;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import starwu.lite.metadata.config.plus.async.AsyncConfig;
-import starwu.lite.metadata.config.plus.async.AsyncItemConfig;
+import starwu.lite.metadata.config.manage.async.AsyncConfig;
+import starwu.lite.metadata.config.manage.async.AsyncItemConfig;
 import starwu.lite.metadata.enumPlus.EnumPlus;
 import starwu.lite.metadata.enums.common.BooleanType;
 import starwu.lite.metadata.enums.threadPool.ThreadPoolRejectedExecutionHandlerEnum;

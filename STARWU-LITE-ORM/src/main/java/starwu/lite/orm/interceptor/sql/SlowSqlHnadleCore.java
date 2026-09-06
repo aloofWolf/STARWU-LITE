@@ -4,11 +4,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
-import starwu.lite.metadata.config.plus.async.AsyncItemConfig;
+import starwu.lite.metadata.config.manage.async.AsyncItemConfig;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.plus.async.threadPool.AsyncThreadPool;
+import starwu.lite.manage.async.threadPool.AsyncThreadPool;
 
 import javax.annotation.PostConstruct;
 import java.util.Date;

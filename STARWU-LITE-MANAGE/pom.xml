@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>STARWU-LITE-PLUS</artifactId>
+    <artifactId>STARWU-LITE-MANAGE</artifactId>
 
     <dependencies>
 

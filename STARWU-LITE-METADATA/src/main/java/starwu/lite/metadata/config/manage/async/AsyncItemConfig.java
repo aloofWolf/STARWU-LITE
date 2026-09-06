@@ -1,4 +1,4 @@
-package starwu.lite.metadata.config.plus.async;
+package starwu.lite.metadata.config.manage.async;
 
 import lombok.Data;
 import lombok.ToString;

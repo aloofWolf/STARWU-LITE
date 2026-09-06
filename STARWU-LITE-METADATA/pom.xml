@@ -57,6 +57,12 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
+
+        <!-- 内部依赖-->
+        <dependency>
+            <groupId>starwu</groupId>
+            <artifactId>STARWU-LITE-UTIL</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

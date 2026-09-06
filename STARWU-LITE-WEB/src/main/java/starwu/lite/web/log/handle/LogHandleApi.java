@@ -9,7 +9,6 @@ import java.util.Date;
 
 public interface LogHandleApi {
 
-    public static LogHandleApi logHandleApi = null;
     public void handleLog(Object body, Date endTime, RequestLog requestLog, UserSession<?> session);
 
     @PostConstruct

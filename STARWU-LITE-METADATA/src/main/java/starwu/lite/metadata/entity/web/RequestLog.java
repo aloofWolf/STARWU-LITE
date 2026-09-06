@@ -9,14 +9,6 @@ import starwu.lite.metadata.enums.web.ResponseResult;
 
 import java.util.Date;
 
-
-/**
- * 
- * @ClassName: RequestLog
- * @Description: 用户请求记录日志表
- * @author Lone Wolf
- * @date 2019年9月10日
- */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)

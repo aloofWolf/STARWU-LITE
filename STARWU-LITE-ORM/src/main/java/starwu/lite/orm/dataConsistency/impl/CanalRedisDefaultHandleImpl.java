@@ -12,7 +12,6 @@ import starwu.lite.metadata.bean.canal.CanalDataBean;
 import starwu.lite.metadata.bean.orm.EntityMetadata;
 import starwu.lite.metadata.entity.orm.base.BaseEntity;
 import starwu.lite.orm.dataConsistency.api.CanalRedisHandleApi;
-import starwu.lite.orm.util.entityMetadata.EntityMetadataUtil;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -25,8 +24,6 @@ import java.util.Map.Entry;
 public class CanalRedisDefaultHandleImpl implements CanalRedisHandleApi {
 
     private final RedisTemplate<String, String> redis;
-
-    private final EntityMetadataUtil entityMetadataUtil;
 
     @Override
     public boolean match(String key) {
@@ -152,14 +149,14 @@ public class CanalRedisDefaultHandleImpl implements CanalRedisHandleApi {
     }
 
     protected <ENTITY extends BaseEntity> void save(EntityMetadata metadata, JSONObject afterJson, Long id) {
-        String key = entityMetadataUtil.genEntityCacheKey(metadata,id);
+        String key = metadata.genEntityCacheKey(id);
         ENTITY entity = parseJsonToEntity(metadata, afterJson);
-        long timeout = entityMetadataUtil.genEntityCacheTimeout(metadata);
+        long timeout = metadata.getPeriod();
         redis.opsForValue().set(key, JSONObject.toJSONString(entity), timeout);
     }
 
     protected <ENTITY extends BaseEntity> void delete(EntityMetadata metadata, Long id) {
-        String key = entityMetadataUtil.genEntityCacheKey(metadata,id);
+        String key = metadata.genEntityCacheKey(id);
         redis.delete(key);
     }
 

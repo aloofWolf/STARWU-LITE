@@ -1,4 +1,4 @@
-package starwu.lite.orm.interceptor;
+package starwu.lite.orm.interceptor.sql;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +10,14 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.springframework.stereotype.Component;
+import starwu.lite.metadata.bean.distributed.session.UserSession;
 import starwu.lite.metadata.config.orm.OrmConfig;
+import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
+import starwu.lite.metadata.entity.web.RequestLog;
+import starwu.lite.plus.threadLocal.ThreadLocalPlus;
 
 import java.sql.Statement;
+import java.util.Date;
 
 @Slf4j
 @Component
@@ -26,28 +31,38 @@ public class DaoSqlInterceptor implements Interceptor {
 
     private final OrmConfig ormConfig;
 
+    private final SlowSqlHnadleCore slowSqlHnadleCore;
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        Object proceed = invocation.proceed();
-        long endTime = System.currentTimeMillis();
-        long consumTime = endTime - startTime;
-        if (consumTime > ormConfig.getSqlExecTimeOut()) {
-            recordLog(consumTime, invocation);
+        Date startTime = new Date();
+        Object proceed = null;
+        try{
+            proceed = invocation.proceed();
+        }catch(Throwable e){
+            Date endTime = new Date();
+            recordLog(startTime,endTime,invocation);
+            throw e;
         }
-
+        Date endTime = new Date();
+        recordLog(startTime,endTime,invocation);
         return proceed;
+
     }
 
-    public void recordLog(long consumTime, Invocation invocation) {
+    public void recordLog(Date startTime, Date endTime, Invocation invocation) {
+
+        long start = startTime.getTime();
+        long end = endTime.getTime();
+        long consumTime = end - start;
 
         if (consumTime > ormConfig.getSqlExecTimeOut()) {
             // 获取查询sql
             RoutingStatementHandler statement = (RoutingStatementHandler) invocation.getTarget();
             String sql = statement.getBoundSql().getSql();
-            // 打印日志信息
-            log.info("sql执行耗时 {}ms", consumTime);
-            log.info("sql is : {}", sql);
+            RequestLog requestLog = ThreadLocalPlus.get(ThreadLocalKey.REQUEST_LOG_KEY);
+            UserSession<?> session = ThreadLocalPlus.get(ThreadLocalKey.SESSION_KEY);
+            slowSqlHnadleCore.handleLog(requestLog, session,startTime,endTime,consumTime,sql,Thread.currentThread().getId());
         }
 
     }

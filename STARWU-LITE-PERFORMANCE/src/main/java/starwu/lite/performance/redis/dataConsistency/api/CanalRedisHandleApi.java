@@ -1,9 +1,9 @@
-package starwu.lite.orm.dataConsistency.api;
+package starwu.lite.performance.redis.dataConsistency.api;
 
 
 import starwu.lite.design.factory.FactoryHandleApi;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
-import starwu.lite.orm.dataConsistency.factory.CanalRedisFactory;
+import starwu.lite.performance.redis.dataConsistency.factory.CanalRedisFactory;
 
 public interface CanalRedisHandleApi extends FactoryHandleApi<String> {
 

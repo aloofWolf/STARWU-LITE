@@ -1,4 +1,4 @@
-package starwu.lite.orm.redis;
+package starwu.lite.performance.redis.cooperation;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +15,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RedisCore {
+public class RedisCooperationCore {
 
     private final RedisTemplate<String,String> stringRedisTemplate;
 
     private final RedissonClient redssion;
 
-    public <ID,RESULT> RESULT getFromRedis(RedisApi<ID,RESULT> api, ID id){
+    public <ID,RESULT> RESULT getFromRedis(RedisCooperationApi<ID,RESULT> api, ID id){
         String redisKey = api.getRedisKey(id);
         String redisValue = stringRedisTemplate.opsForValue().get(redisKey);
         if("".equals(redisValue)) {
@@ -41,7 +41,7 @@ public class RedisCore {
     }
 
     @SneakyThrows
-    private <ID,RESULT> RESULT getFromRedisWithLock(RedisApi<ID,RESULT> api, ID id, int count) {
+    private <ID,RESULT> RESULT getFromRedisWithLock(RedisCooperationApi<ID,RESULT> api, ID id, int count) {
         if (count > api.getReTryCount()) {
             return api.getTtryLockFailResult(id); // 递归6次，返回null
         }
@@ -70,7 +70,7 @@ public class RedisCore {
 
     }
 
-    private <ID,RESULT>  void writeBackToCache(RedisApi<ID,RESULT> api, String redisKey, RESULT resp) {
+    private <ID,RESULT>  void writeBackToCache(RedisCooperationApi<ID,RESULT> api, String redisKey, RESULT resp) {
         if (resp != null) {
             stringRedisTemplate.opsForValue().set(redisKey, JSONObject.toJSONString(resp),
                     api.redisTimeOut(), TimeUnit.MINUTES);
@@ -78,5 +78,4 @@ public class RedisCore {
             stringRedisTemplate.opsForValue().set(redisKey, "", api.redisTimeOut(), TimeUnit.MINUTES);
         }
     }
-
 }

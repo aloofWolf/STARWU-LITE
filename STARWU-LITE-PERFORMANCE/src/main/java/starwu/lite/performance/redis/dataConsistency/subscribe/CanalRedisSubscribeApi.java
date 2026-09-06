@@ -1,13 +1,4 @@
-package starwu.lite.orm.dataConsistency.subscribe;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import starwu.lite.canal.notify.CanalObserverApi;
-import starwu.lite.metadata.bean.canal.CanalDataBean;
-import starwu.lite.metadata.enums.canal.DbUpdateType;
-import starwu.lite.orm.dataConsistency.api.CanalRedisHandleApi;
-import starwu.lite.orm.dataConsistency.factory.CanalRedisFactory;
+package starwu.lite.performance.redis.dataConsistency.subscribe;
 
 /*@RequiredArgsConstructor
 @Component

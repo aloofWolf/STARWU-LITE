@@ -11,8 +11,8 @@ import starwu.lite.metadata.bean.org.page.BasePageResponse;
 import starwu.lite.metadata.bean.orm.EntityMetadata;
 import starwu.lite.metadata.entity.orm.base.BaseEntity;
 import starwu.lite.orm.metadata.MetadataCore;
-import starwu.lite.orm.redis.RedisCore;
-import starwu.lite.orm.redis.RedisApi;
+import starwu.lite.performance.redis.cooperation.RedisCooperationApi;
+import starwu.lite.performance.redis.cooperation.RedisCooperationCore;
 import starwu.lite.util.SpringUtil;
 
 public interface BaseDao<T extends BaseEntity> extends BaseMapper<T>{
@@ -21,8 +21,8 @@ public interface BaseDao<T extends BaseEntity> extends BaseMapper<T>{
         MetadataCore metadataCore = SpringUtil.getBean(MetadataCore.class);
         EntityMetadata metadata = metadataCore.getEntityMetadataByDaoCls((Class<? extends BaseDao>) this.getClass().getInterfaces()[0]);
         if(metadata.isNeedCache()){
-            RedisApi<Long,T> redisApi = metadataCore.getRedisApiByDaoCls(this);
-            RedisCore redis = SpringUtil.getBean(RedisCore.class);
+            RedisCooperationApi<Long,T> redisApi = metadataCore.getRedisApiByDaoCls(this);
+            RedisCooperationCore redis = SpringUtil.getBean(RedisCooperationCore.class);
             return redis.getFromRedis(redisApi,id);
         }
         return this.selectById(id);

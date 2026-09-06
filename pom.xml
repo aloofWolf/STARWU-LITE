@@ -18,6 +18,7 @@
         <module>STARWU-LITE-DISTRIBUTED</module>
         <module>STARWU-LITE-METADATA</module>
         <module>STARWU-LITE-ALL-MOUDLES</module>
+        <module>STARWU-LITE-PERFORMANCE</module>
     </modules>
 
     <properties>

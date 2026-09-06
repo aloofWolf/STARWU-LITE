@@ -1,19 +1,20 @@
-package starwu.lite.orm.redis;
+package starwu.lite.orm.cooperation;
 
 import com.alibaba.fastjson.JSONObject;
 import starwu.lite.metadata.bean.orm.EntityMetadata;
 import starwu.lite.metadata.entity.orm.base.BaseEntity;
 import starwu.lite.orm.dao.BaseDao;
 import starwu.lite.orm.metadata.MetadataCore;
+import starwu.lite.performance.redis.cooperation.RedisCooperationApi;
 import starwu.lite.util.SpringUtil;
 
-public class RedisDefaultImpl implements RedisApi<Long,BaseEntity>{
+public class RedisCooperationDefaultImpl implements RedisCooperationApi<Long, BaseEntity> {
 
     private BaseDao<? extends BaseEntity> baseDao;
     private EntityMetadata metadata;
     private static MetadataCore metadataCore;
 
-    public RedisDefaultImpl(BaseDao<? extends BaseEntity> baseDao) {
+    public RedisCooperationDefaultImpl(BaseDao<? extends BaseEntity> baseDao) {
         this.baseDao = baseDao;
         if(metadataCore==null){
             metadataCore = SpringUtil.getBean(MetadataCore.class);

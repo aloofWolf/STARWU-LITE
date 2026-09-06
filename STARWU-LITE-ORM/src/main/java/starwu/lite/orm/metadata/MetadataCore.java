@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import starwu.lite.metadata.ann.orm.Cache;
 import starwu.lite.metadata.bean.orm.EntityMetadata;
 import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.orm.cooperation.RedisCooperationDefaultImpl;
 import starwu.lite.orm.dao.BaseDao;
-import starwu.lite.orm.redis.RedisApi;
-import starwu.lite.orm.redis.RedisDefaultImpl;
+import starwu.lite.performance.redis.cooperation.RedisCooperationApi;
 import starwu.lite.util.GenericityUtil;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ public class MetadataCore {
 
     private Map<Class<? extends BaseDao>, EntityMetadata> daoToMetadataMap = new ConcurrentHashMap<>();
 
-    private Map<BaseDao, RedisApi> daoToRedisApiMap = new ConcurrentHashMap<>();
+    private Map<BaseDao, RedisCooperationApi> daoToRedisApiMap = new ConcurrentHashMap<>();
 
     public EntityMetadata getEntityMetadataByDaoCls(Class<? extends BaseDao> daoCls) {
         EntityMetadata metadata = daoToMetadataMap.get(daoCls);
@@ -64,8 +64,8 @@ public class MetadataCore {
         }
     }
 
-    public RedisApi getRedisApiByDaoCls(BaseDao baseDao) {
-        RedisApi redisApi = daoToRedisApiMap.get(baseDao);
+    public RedisCooperationApi getRedisApiByDaoCls(BaseDao baseDao) {
+        RedisCooperationApi redisApi = daoToRedisApiMap.get(baseDao);
         if (redisApi == null) {
             redisApi = genRedisApiByDaoCls(baseDao);
         }
@@ -73,11 +73,11 @@ public class MetadataCore {
     }
 
 
-    private RedisApi genRedisApiByDaoCls(BaseDao baseDao) {
+    private RedisCooperationApi genRedisApiByDaoCls(BaseDao baseDao) {
         synchronized (baseDao) {
-            RedisApi redisApi = daoToRedisApiMap.get(baseDao);
+            RedisCooperationApi redisApi = daoToRedisApiMap.get(baseDao);
             if (redisApi == null) {
-                redisApi = new RedisDefaultImpl(baseDao);
+                redisApi = new RedisCooperationDefaultImpl(baseDao);
                 daoToRedisApiMap.put(baseDao, redisApi);
             }
             return redisApi;

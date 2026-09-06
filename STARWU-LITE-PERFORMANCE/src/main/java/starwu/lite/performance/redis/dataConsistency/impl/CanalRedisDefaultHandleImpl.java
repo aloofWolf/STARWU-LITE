@@ -1,4 +1,4 @@
-package starwu.lite.orm.dataConsistency.impl;
+package starwu.lite.performance.redis.dataConsistency.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
@@ -11,7 +11,7 @@ import starwu.lite.metadata.ann.orm.Cache;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
 import starwu.lite.metadata.bean.orm.EntityMetadata;
 import starwu.lite.metadata.entity.orm.base.BaseEntity;
-import starwu.lite.orm.dataConsistency.api.CanalRedisHandleApi;
+import starwu.lite.performance.redis.dataConsistency.api.CanalRedisHandleApi;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

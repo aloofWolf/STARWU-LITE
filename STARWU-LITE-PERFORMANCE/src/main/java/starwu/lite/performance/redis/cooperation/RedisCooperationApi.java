@@ -1,8 +1,6 @@
-package starwu.lite.orm.redis;
+package starwu.lite.performance.redis.cooperation;
 
-import starwu.lite.metadata.bean.orm.EntityMetadata;
-
-public interface RedisApi<ID,RESULT> {
+public interface RedisCooperationApi<ID,RESULT> {
 
     public String getRedisKey(ID identifier);
 

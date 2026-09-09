@@ -27,7 +27,7 @@
         <!-- 内部依赖-->
         <dependency>
             <groupId>starwu</groupId>
-            <artifactId>STARWU-LITE-ORM</artifactId>
+            <artifactId>STARWU-LITE-DAO</artifactId>
         </dependency>
         <dependency>
             <groupId>starwu</groupId>

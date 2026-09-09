@@ -13,12 +13,11 @@
         <module>STARWU-LITE-MANAGE</module>
         <module>STARWU-LITE-DESIGN</module>
         <module>STARWU-LITE-CANAL</module>
-        <module>STARWU-LITE-ORM</module>
+        <module>STARWU-LITE-DAO</module>
         <module>STARWU-LITE-WEB</module>
         <module>STARWU-LITE-DISTRIBUTED</module>
         <module>STARWU-LITE-METADATA</module>
         <module>STARWU-LITE-ALL-MOUDLES</module>
-        <module>STARWU-LITE-PERFORMANCE</module>
     </modules>
 
     <properties>
@@ -131,7 +130,7 @@
             </dependency>
             <dependency>
                 <groupId>starwu</groupId>
-                <artifactId>STARWU-LITE-ORM</artifactId>
+                <artifactId>STARWU-LITE-DAO</artifactId>
                 <version>${starwu.lite.version}</version>
             </dependency>
             <dependency>

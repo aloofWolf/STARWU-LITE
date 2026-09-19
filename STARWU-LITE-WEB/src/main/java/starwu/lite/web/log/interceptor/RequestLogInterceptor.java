@@ -1,13 +1,13 @@
 package starwu.lite.web.log.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.manage.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalCore;
 import starwu.lite.util.EnvironmentUtil;
 import starwu.lite.util.SnowflakeIdGenerator;
 import starwu.lite.util.StringUtil;
@@ -50,7 +50,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 				.setUrl(request.getRequestURI()).setRequestParam(requestParam)
 				.setContainerId(containerId).setThreadId(Thread.currentThread().getId());
 
-		ThreadLocalPlus.put(ThreadLocalKey.REQUEST_LOG_KEY, requestLog);
+		ThreadLocalCore.put(ThreadLocalKey.REQUEST_LOG_KEY, requestLog);
 		return true;
 	}
 

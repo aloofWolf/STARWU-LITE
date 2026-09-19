@@ -599,4 +599,16 @@ public class DateUtil {
 		long currentTime = System.currentTimeMillis() + minute * 60 * 1000;
 		return new Date(currentTime);
 	}
+
+	/**
+	 *
+	 * @Title: getDateBeforeMinute
+	 * @Description:获取几分钟后的时间
+	 * @param minute
+	 * @return
+	 */
+	public static Date getDateBeforeMinute(int minute) {
+		long currentTime = System.currentTimeMillis() - minute * 60 * 1000;
+		return new Date(currentTime);
+	}
 }

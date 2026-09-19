@@ -1,4 +1,4 @@
-package starwu.lite.metadata.entity.orm.base;
+package starwu.lite.metadata.entity.dao.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

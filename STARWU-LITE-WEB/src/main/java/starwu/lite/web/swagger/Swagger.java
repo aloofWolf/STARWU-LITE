@@ -21,8 +21,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -78,6 +80,8 @@ public class Swagger {
                 registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
                 registry.addResourceHandler("swagger-ui.html")
                         .addResourceLocations("classpath:/META-INF/resources/");
+                registry.addResourceHandler("/favicon.ico")
+                        .addResourceLocations("classpath:/META-INF/resources/static/favicon.ico");
                 registry.addResourceHandler("/webjars/**")
                         .addResourceLocations("classpath:/META-INF/resources/webjars/");
                 registry.addResourceHandler("doc.html")
@@ -99,7 +103,8 @@ public class Swagger {
                 .build()
                 .enable(swaggerConfig.isEnable())
                 .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .securityContexts(securityContexts())
+                .globalOperationParameters(globalParams());
     }
 
     private ApiInfo apiInfo() {
@@ -146,6 +151,20 @@ public class Swagger {
                     securityReferences.add(new SecurityReference(authHeader, authorizationScopes)));
         }
         return securityReferences;
+    }
+
+    private List<Parameter> globalParams(){
+        List<Parameter> globalParams = new ArrayList<>();
+
+        Parameter tokenHeader = new ParameterBuilder()
+                .name("token") // header名称
+                .description("登录令牌")
+                .parameterType("header") // 关键：放在header
+                .modelRef(new ModelRef("string"))
+                .required(false) // 是否必填
+                .build();
+        globalParams.add(tokenHeader);
+        return globalParams;
     }
 
     /**

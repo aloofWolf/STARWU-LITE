@@ -1,11 +1,12 @@
 package starwu.lite.dao.redis.cooperation;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import starwu.lite.util.StringUtil;
@@ -19,7 +20,8 @@ public class RedisCooperationCore {
 
     private final RedisTemplate<String,String> stringRedisTemplate;
 
-    private final RedissonClient redssion;
+    @Autowired
+    private RedissonClient redisson;
 
     public <ID,RESULT> RESULT getFromRedis(RedisCooperationApi<ID,RESULT> api, ID id){
         String redisKey = api.getRedisKey(id);
@@ -57,7 +59,7 @@ public class RedisCooperationCore {
 
 
         String lockKey = StringUtil.appendWithUnSafe(redisKey,"-LOCK");
-        RLock lock = redssion.getLock(lockKey);
+        RLock lock = redisson.getLock(lockKey);
         boolean flag = lock.tryLock();
         if (!flag) {
             Thread.sleep(api.getSleepTime());

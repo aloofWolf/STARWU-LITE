@@ -1,5 +1,6 @@
 package starwu.lite.metadata.enums.web;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import starwu.lite.metadata.enumPlus.EnumApi;
@@ -17,6 +18,7 @@ public enum ErrorCodeType implements EnumApi<Integer> {
 	private Integer id;
 
 	@JsonValue
+	@EnumValue
 	private int code;
 
 	@SuppressWarnings("unused")

@@ -1,11 +1,11 @@
 package starwu.lite.dao.interceptor.sql;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
-import starwu.lite.metadata.entity.orm.base.slowSql.SlowSqlLog;
+import starwu.lite.metadata.entity.dao.base.slowSql.SlowSqlLog;
 import starwu.lite.metadata.entity.web.RequestLog;
 import starwu.lite.dao.core.SlowSqlLogDao;
 import starwu.lite.util.EnvironmentUtil;

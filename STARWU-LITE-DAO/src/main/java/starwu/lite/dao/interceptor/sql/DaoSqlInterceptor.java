@@ -11,10 +11,10 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.springframework.stereotype.Component;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
-import starwu.lite.metadata.config.orm.OrmConfig;
+import starwu.lite.metadata.config.dao.DaoConfig;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.manage.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalCore;
 
 import java.sql.Statement;
 import java.util.Date;
@@ -29,7 +29,7 @@ import java.util.Date;
         @Signature(method = "batch", type = StatementHandler.class, args = {Statement.class})})
 public class DaoSqlInterceptor implements Interceptor {
 
-    private final OrmConfig ormConfig;
+    private final DaoConfig daoConfig;
 
     private final SlowSqlHnadleCore slowSqlHnadleCore;
 
@@ -56,12 +56,12 @@ public class DaoSqlInterceptor implements Interceptor {
         long end = endTime.getTime();
         long consumTime = end - start;
 
-        if (consumTime > ormConfig.getSqlExecTimeOut()) {
+        if (consumTime > daoConfig.getSqlExecTimeOut()) {
             // 获取查询sql
             RoutingStatementHandler statement = (RoutingStatementHandler) invocation.getTarget();
             String sql = statement.getBoundSql().getSql();
-            RequestLog requestLog = ThreadLocalPlus.get(ThreadLocalKey.REQUEST_LOG_KEY);
-            UserSession<?> session = ThreadLocalPlus.get(ThreadLocalKey.SESSION_KEY);
+            RequestLog requestLog = ThreadLocalCore.get(ThreadLocalKey.REQUEST_LOG_KEY);
+            UserSession<?> session = ThreadLocalCore.get(ThreadLocalKey.SESSION_KEY);
             slowSqlHnadleCore.handleLog(requestLog, session,startTime,endTime,consumTime,sql,Thread.currentThread().getId());
         }
 

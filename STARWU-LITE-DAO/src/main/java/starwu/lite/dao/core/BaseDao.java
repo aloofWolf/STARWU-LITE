@@ -9,8 +9,8 @@ import starwu.lite.dao.redis.cooperation.RedisCooperationApi;
 import starwu.lite.dao.redis.cooperation.RedisCooperationCore;
 import starwu.lite.metadata.bean.org.page.BasePageRequest;
 import starwu.lite.metadata.bean.org.page.BasePageResponse;
-import starwu.lite.metadata.bean.orm.EntityMetadata;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.bean.dao.EntityMetadata;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 import starwu.lite.dao.metadata.MetadataCore;
 import starwu.lite.util.SpringUtil;
 

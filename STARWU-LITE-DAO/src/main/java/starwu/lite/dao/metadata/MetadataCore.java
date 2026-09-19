@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import starwu.lite.dao.redis.cooperation.RedisCooperationApi;
 import starwu.lite.dao.redis.cooperation.RedisCooperationDefaultImpl;
 import starwu.lite.metadata.ann.orm.Cache;
-import starwu.lite.metadata.bean.orm.EntityMetadata;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.bean.dao.EntityMetadata;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 import starwu.lite.dao.core.BaseDao;
 import starwu.lite.util.GenericityUtil;
 

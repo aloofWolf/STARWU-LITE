@@ -1,6 +1,7 @@
 package starwu.lite.util;
 
 import lombok.SneakyThrows;
+import org.springframework.util.AntPathMatcher;
 
 import java.net.InetAddress;
 
@@ -27,5 +28,10 @@ public class HostUtil {
 		address.getHostName();
 		return hostIp;
 
+	}
+
+	public static void main(String[] args) {
+		AntPathMatcher matcher = new AntPathMatcher();
+		System.out.println(matcher.match("/**/swagger-resources", "/swagger-resources"));
 	}
 }

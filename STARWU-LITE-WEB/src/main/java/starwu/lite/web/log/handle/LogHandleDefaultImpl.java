@@ -1,12 +1,13 @@
 package starwu.lite.web.log.handle;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
 import starwu.lite.metadata.bean.web.ResponseBean;
 import starwu.lite.metadata.entity.web.RequestLog;
+import starwu.lite.metadata.enums.web.ResponseResult;
 import starwu.lite.web.log.dao.RequestLogDao;
 
 import javax.annotation.PostConstruct;
@@ -34,11 +35,20 @@ public class LogHandleDefaultImpl implements LogHandleApi{
         long consumTime = endTime.getTime() - requestLog.getStartTime().getTime();
         requestLog.setEndTime(endTime);
         requestLog.setConsumTime(consumTime);
-        ResponseBean responseData = (ResponseBean) body;
-        String responseString = JSONObject.toJSONString(responseData);
-        requestLog.setResponseParam(responseString);
-        requestLog.setResult(responseData.getResult());
-        requestLog.setErrMsg(responseData.getErrMsg());
+        if(body instanceof ResponseBean){
+            ResponseBean responseData = (ResponseBean) body;
+            requestLog.setResponseParam(JSONObject.toJSONString(body));
+            requestLog.setResult(responseData.getResult());
+            requestLog.setErrMsg(responseData.getErrMsg());
+        }else if (body instanceof String){
+            requestLog.setResponseParam((String) body);
+            requestLog.setResult(ResponseResult.SUCCESS);
+        }else{
+            requestLog.setResult(ResponseResult.UNKNOWN);
+            if(body != null){
+                requestLog.setResponseParam(JSONObject.toJSONString(body));
+            }
+        }
         if (session != null) {
             requestLog.setUserId(session.getUserId()).setUserName(session.getUserName());
         }

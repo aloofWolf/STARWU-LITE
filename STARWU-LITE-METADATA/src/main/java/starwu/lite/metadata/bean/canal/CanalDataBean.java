@@ -1,6 +1,6 @@
 package starwu.lite.metadata.bean.canal;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
 import starwu.lite.metadata.enums.canal.DbUpdateType;
 

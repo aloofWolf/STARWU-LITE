@@ -4,4 +4,5 @@ public class ThreadLocalKey {
 
     public static final String REQUEST_LOG_KEY = "requestLog";
     public static final String SESSION_KEY = "userSession";
+    public static final String REQUEST_PROCESS_KEY = "requestProcess";
 }

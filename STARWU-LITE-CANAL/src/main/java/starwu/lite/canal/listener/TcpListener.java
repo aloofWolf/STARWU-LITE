@@ -1,6 +1,6 @@
 package starwu.lite.canal.listener;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import starwu.lite.canal.notify.CanalSubject;
@@ -18,13 +17,12 @@ import starwu.lite.metadata.bean.canal.CanalDataBean;
 import starwu.lite.metadata.config.canal.CanalConfig;
 import starwu.lite.metadata.config.canal.CanalItemConfig;
 import starwu.lite.metadata.enums.canal.DbUpdateType;
+
+import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -40,20 +38,24 @@ public class TcpListener {
 
     private ThreadPoolTaskExecutor executor;
 
-    @Async
+    @PostConstruct
     public void start(){
-
-        this.executor = asyncThreadPool.getThreadPoolTaskExecutor(config.getHandleAsyncThreadName());
-
         if(config.isTcpEnabled()){
             log.info("开始监听canal");
         }else{
             return;
         }
-
-        CanalConnector connector = getConnector();
-        listenerData(connector);
-        connector.disconnect();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                // 线程要执行的逻辑
+                executor = asyncThreadPool.getThreadPoolTaskExecutor(config.getHandleAsyncThreadName());
+                CanalConnector connector = getConnector();
+                listenerData(connector);
+                connector.disconnect();
+            }
+        };
+        thread.start();
     }
 
 
@@ -77,17 +79,17 @@ public class TcpListener {
             connector.rollback();
             return connector;
         }catch(Throwable e){
-            log.error("错误信息:{}",e);
+            log.error("TcpListener getConnector error:{}",e);
         }
         return null;
 
 
     }
 
-    private void listenerData(CanalConnector connector){
+    private void  listenerData(CanalConnector connector){
         while (true){
             try{
-                Message message = connector.getWithoutAck(1, config.getTimeOut(), TimeUnit.SECONDS);
+                Message message = connector.getWithoutAck(config.getBatchSize(), config.getTimeOut(), TimeUnit.SECONDS);
                 long batchId = message.getId();
                 List<CanalEntry.Entry> entries = message.getEntries();
                 if (batchId == -1 || entries.isEmpty()) {
@@ -97,10 +99,9 @@ public class TcpListener {
                 executor.execute(() -> {
                     processData(entries);
                 });
-                processData(entries);
                 connector.ack(batchId);
             }catch(Exception e){
-                log.error("错误信息:{}",e);
+                log.error("TcpListener listenerData error:{}",e);
                 continue;
             }
         }
@@ -114,10 +115,10 @@ public class TcpListener {
             }
             try{
                 CanalDataBean bean = buildCanalDataBean(entry);
-                log.info("bean:{}", JSONObject.toJSONString(bean));
+                log.debug("bean:{}", JSONObject.toJSONString(bean));
                 subject.notify(bean);
             }catch(Exception e){
-                log.error("error:{}",e);
+                log.error("TcpListener processData error:{}",e);
                 continue;
             }
         }
@@ -132,10 +133,8 @@ public class TcpListener {
         bean.setTableName(entry.getHeader().getTableName());
         bean.setExecuteTime(new Date(entry.getHeader().getExecuteTime()));
         bean.setType(DbUpdateType.getDbUpdateType(entry.getHeader().getEventType().name()));
-        if("dsq".equals(bean.getDatabaseName())){
-            bean.setBefore(processColumns(rowDataList.get(0).getBeforeColumnsList()));
-            bean.setAfer(processColumns(rowDataList.get(0).getAfterColumnsList()));
-        }
+        bean.setBefore(processColumns(rowDataList.get(0).getBeforeColumnsList()));
+        bean.setAfer(processColumns(rowDataList.get(0).getAfterColumnsList()));
 
         return bean;
     }

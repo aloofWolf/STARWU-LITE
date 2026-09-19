@@ -1,5 +1,6 @@
 package starwu.lite.metadata.enums.distributed.transaction;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import starwu.lite.metadata.enumPlus.EnumApi;
 
@@ -17,6 +18,8 @@ public enum CallTimeType implements EnumApi<Integer> {
         this.name = name;
     }
 
+
+    @JSONField(value = true)
     @Override
     public Integer getId() {
         return this.id;

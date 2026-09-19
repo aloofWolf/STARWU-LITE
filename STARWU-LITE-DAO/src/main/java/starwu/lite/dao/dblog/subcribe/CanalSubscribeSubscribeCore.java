@@ -11,7 +11,7 @@ import starwu.lite.metadata.bean.canal.CanalDataBean;
 @RequiredArgsConstructor
 @Component
 @Slf4j
-public class CanalSubscribeSubscribeApi implements CanalObserverApi {
+public class CanalSubscribeSubscribeCore implements CanalObserverApi {
 
     private final CanalDblogFactory factory;
     @Override
@@ -21,9 +21,8 @@ public class CanalSubscribeSubscribeApi implements CanalObserverApi {
 
     @Override
     public void received(CanalDataBean canalDataBean) {
-            String table = canalDataBean.getTableName();
-            CanalDblogHandleApi api = factory.get(table);
-            api.handle(canalDataBean);
-
+        String table = canalDataBean.getTableName();
+        CanalDblogHandleApi api = factory.get(table);
+        api.handle(canalDataBean);
     }
 }

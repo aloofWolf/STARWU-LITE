@@ -1,21 +1,18 @@
 package starwu.lite.metadata.bean.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import starwu.lite.metadata.enums.web.ErrorCodeType;
 import starwu.lite.metadata.enums.web.ResponseResult;
 
 import java.io.Serializable;
 
-/**
- * 
- * @ClassName: ResponseBean
- * @Description: web接口统一返回信息
- * @author Lone Wolf
- * @date 2019年9月10日
- */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseBean implements Serializable {
 
 	private static final long serialVersionUID = 8096365334124260698L;

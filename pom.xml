@@ -26,10 +26,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.14</spring-boot.version>
-        <fastjson.version>1.2.47</fastjson.version>
+        <fastjson2.version>2.0.62</fastjson2.version>
         <canal.version>1.1.7</canal.version>
-        <mybatis-plus.version>3.5.3</mybatis-plus.version>
-        <redisson.version>3.15.5</redisson.version>
+        <mybatis-plus.version>3.5.17</mybatis-plus.version>
+        <redisson.version>3.17.7</redisson.version>
         <UserAgentUtils.version>1.21</UserAgentUtils.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
@@ -52,6 +52,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser-4.9</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <!--canal依赖 -->
@@ -165,9 +170,9 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
         </dependency>
     </dependencies>
     <distributionManagement>

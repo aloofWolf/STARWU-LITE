@@ -3,7 +3,9 @@ package starwu.lite.web.interceptor.outer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import starwu.lite.manage.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalCore;
+import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
+import starwu.lite.metadata.entity.web.RequestLog;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +25,7 @@ public class ThreadLocalInterceptor implements HandlerInterceptor {
 
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		ThreadLocalPlus.clear();
+		ThreadLocalCore.clear();
 	}
 
 }

@@ -4,7 +4,7 @@ import starwu.lite.util.SpringUtil;
 
 import javax.annotation.PostConstruct;
 
-public interface ChainHandleApi<T,CHAIN extends ChainEntryApi> {
+public interface ChainHandleApi<T> {
 
     public int order();
 
@@ -14,11 +14,11 @@ public interface ChainHandleApi<T,CHAIN extends ChainEntryApi> {
 
     public boolean process(T t);
 
-    public Class<CHAIN> getChainCls();
+    public Class<? extends ChainEntryApi> getChainCls();
 
     @PostConstruct
     public default void regist(){
-        CHAIN chain = SpringUtil.getBean(getChainCls());
+        ChainEntryApi chain = SpringUtil.getBean(getChainCls());
         chain.regist(this);
         
 

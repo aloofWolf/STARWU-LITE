@@ -1,16 +1,18 @@
-package starwu.lite.metadata.bean.orm;
+package starwu.lite.metadata.bean.dao;
 
 import lombok.Data;
 import starwu.lite.metadata.ann.orm.Cache;
-import starwu.lite.metadata.config.orm.OrmConfig;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.config.dao.DaoConfig;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 import starwu.lite.util.SpringUtil;
 import starwu.lite.util.StringUtil;
 
 @Data
 public class EntityMetadata {
 
-    private static OrmConfig ormConfig = SpringUtil.getBean(OrmConfig.class);
+    private static DaoConfig daoConfig = SpringUtil.getBean(DaoConfig.class);
+
+    private static final String cachePrefix = "STARWU-LITE-CACHE:";
 
     private Class<? extends BaseEntity> entityCls; // 实体类的class类型
 
@@ -31,7 +33,7 @@ public class EntityMetadata {
             this.isNeedCache = true;
             int period = cache.period();
             if (period <= 0) {
-                period = ormConfig.getCachePeriod();
+                period = daoConfig.getCachePeriod();
             }
             this.period = period;
         } else {
@@ -40,6 +42,6 @@ public class EntityMetadata {
     }
 
     public String genEntityCacheKey(Long id) {
-        return StringUtil.appendWithUnSafe(this.getClsName(), "-", id);
+        return StringUtil.appendWithUnSafe(cachePrefix,this.getClsName(), ":", id);
     }
 }

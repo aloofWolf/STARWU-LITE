@@ -12,13 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-/**
- * 
- * @ClassName: RequestWrapper
- * @Description: 记录请求日志的RequestWrapper
- * @author yunxuewen
- * @date 2025年9月10日
- */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
 	private final byte[] body;

@@ -5,13 +5,6 @@ import lombok.Data;
 
 import java.util.List;
 
-/**
- * @param <T>
- * @author Lone Wolf
- * @ClassName: BasePageResponse
- * @Description: 分页请求的response
- * @date 2019年9月10日
- */
 @Data
 public class BasePageResponse<T> {
 

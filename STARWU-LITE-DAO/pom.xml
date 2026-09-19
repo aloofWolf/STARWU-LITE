@@ -24,6 +24,10 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser-4.9</artifactId>
+        </dependency>
         <!--mysql依赖 -->
         <dependency>
             <groupId>com.mysql</groupId>

@@ -33,11 +33,12 @@ public abstract class SubjectApi<T> {
     public void notify(T t)  {
         for(ObserverApi v : globalList){
             executor.execute(() -> {
-                v.received(t);
+                if(v.isReceived(t)){
+                    v.received(t);
+                }
+
             });
-
         }
-
     }
 
     public abstract String getAsyncThreadName();

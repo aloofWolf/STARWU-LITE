@@ -8,13 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-/**
- * 
- * @ClassName: HttpServletUtil
- * @Description: HttpServlet工具类
- * @author yunxuewen
- * @date 2025年9月10日
- */
 public class HttpServletUtil {
 
 	/**

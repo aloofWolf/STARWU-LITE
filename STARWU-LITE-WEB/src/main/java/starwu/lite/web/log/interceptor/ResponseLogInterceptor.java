@@ -11,10 +11,9 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import starwu.lite.metadata.bean.distributed.session.UserSession;
-import starwu.lite.metadata.bean.web.ResponseBean;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
 import starwu.lite.metadata.entity.web.RequestLog;
-import starwu.lite.manage.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalCore;
 import starwu.lite.web.log.handle.LogHandleCore;
 
 import java.util.Date;
@@ -29,7 +28,7 @@ public class ResponseLogInterceptor implements ResponseBodyAdvice<Object> {
 
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return true;
+		return ThreadLocalCore.get(ThreadLocalKey.REQUEST_LOG_KEY) != null;
 	}
 
 	/**
@@ -39,14 +38,11 @@ public class ResponseLogInterceptor implements ResponseBodyAdvice<Object> {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
-		if(body instanceof ResponseBean) {
-			RequestLog requestLog = ThreadLocalPlus.get(ThreadLocalKey.REQUEST_LOG_KEY);
-			UserSession<?> session = ThreadLocalPlus.get(ThreadLocalKey.SESSION_KEY);
-			Date endTime = new Date();
-			ResponseBean responseData = (ResponseBean) body;
-			log.info("响应报文:{}", body);
-			logHandleCore.handleLog(responseData, endTime,requestLog,session);
-		}
+		RequestLog requestLog = ThreadLocalCore.get(ThreadLocalKey.REQUEST_LOG_KEY);
+		UserSession<?> session = ThreadLocalCore.get(ThreadLocalKey.SESSION_KEY);
+		Date endTime = new Date();
+		log.info("响应报文:{}", body);
+		logHandleCore.handleLog(body, endTime,requestLog,session);
 		return body;
 	}
 

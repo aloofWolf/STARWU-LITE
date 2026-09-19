@@ -1,11 +1,5 @@
 package starwu.lite.metadata.bean.org.page;
 
-/**
- * @author Lone Wolf
- * @ClassName: BasePageRequest
- * @Description: 分页请求的request
- * @date 2019年9月10日
- */
 public class BasePageRequest {
 
     private Integer pageNum; // 查询第几页

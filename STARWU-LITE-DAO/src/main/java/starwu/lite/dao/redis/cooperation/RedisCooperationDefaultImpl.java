@@ -1,10 +1,10 @@
 package starwu.lite.dao.redis.cooperation;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import starwu.lite.dao.core.BaseDao;
 import starwu.lite.dao.metadata.MetadataCore;
-import starwu.lite.metadata.bean.orm.EntityMetadata;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.bean.dao.EntityMetadata;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 import starwu.lite.util.SpringUtil;
 
 public class RedisCooperationDefaultImpl implements RedisCooperationApi<Long, BaseEntity> {

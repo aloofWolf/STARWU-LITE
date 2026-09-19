@@ -11,6 +11,6 @@ import java.lang.reflect.Method;
 public class AsyncExceptionHandle implements AsyncUncaughtExceptionHandler {
     @Override
     public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-        log.error("异步处理异常,method:{},params:{},错误信息:{}", method,params,ex);
+        log.error("异步处理异常,method:{},params:{}", method,params,ex);
     }
 }

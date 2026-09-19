@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 2019年9月10日
  */
 @Component
-public class ThreadLocalPlus {
+public class ThreadLocalCore {
 
 	private static ThreadLocal<Map<Object, Object>> tl = new ThreadLocal<Map<Object, Object>>();
 	private static ThreadLocal<Map<Object, Object>> tlNoRemove = new ThreadLocal<Map<Object, Object>>();

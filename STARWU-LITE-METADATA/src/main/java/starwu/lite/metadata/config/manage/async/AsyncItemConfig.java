@@ -3,7 +3,6 @@ package starwu.lite.metadata.config.manage.async;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
-import starwu.lite.util.StringUtil;
 
 @Component
 @Data
@@ -20,7 +19,7 @@ public class AsyncItemConfig {
 
 	private Integer keepAliveSeconds = 3;
 	
-	private String threadNamePrefix = StringUtil.appendWithUnSafe(this.name,"-");
+	private String threadNamePrefix;
 	
 	private Integer waitForTasksToCompleteOnShutdown = 0;
 	

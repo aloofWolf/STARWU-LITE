@@ -2,6 +2,7 @@ package starwu.lite.web.response;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,13 +14,6 @@ import starwu.lite.web.log.interceptor.RequestLogInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 
- * @ClassName: ResponseExceptionsInterceptor
- * @Description: Response异常拦截器
- * @author yunxuewen
- * @date 2025年9月10日
- */
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor

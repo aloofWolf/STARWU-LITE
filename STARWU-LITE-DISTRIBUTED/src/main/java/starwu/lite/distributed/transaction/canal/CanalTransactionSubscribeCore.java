@@ -1,6 +1,7 @@
 package starwu.lite.distributed.transaction.canal;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import starwu.lite.distributed.transaction.core.TransactionCore;
@@ -18,13 +19,13 @@ import starwu.lite.util.StringUtil;
 
 @RequiredArgsConstructor
 @Component
-public class CanalTransactionSubscribeApi implements CanalObserverApi {
+public class CanalTransactionSubscribeCore implements CanalObserverApi {
 
     private final TransactionRemoteCallFactory factory;
     private final TransactionCore transactionCore;
     @Override
     public boolean isReceived(CanalDataBean canalDataBean) {
-        if("transaction".equals(canalDataBean.getTableName())){
+        if("starwu_lite_transaction".equals(canalDataBean.getTableName())){
             DbUpdateType operatorType = canalDataBean.getType();
             if (DbUpdateType.INSERT.equals(operatorType) || DbUpdateType.UPDATE.equals(operatorType)){
                 return true;
@@ -37,10 +38,10 @@ public class CanalTransactionSubscribeApi implements CanalObserverApi {
     public void received(CanalDataBean canalDataBean) {
 
         JSONObject json = canalDataBean.getAfer();
-        Transaction transaction = JSONObject.parseObject(json.toJSONString(), Transaction.class);
+        Transaction transaction = json.toJavaObject(Transaction.class, JSONReader.Feature.SupportSmartMatch);
         if(CallTimeType.IMMEDIATELY.equals(transaction.getCallTimeType())){
             TransactionRemoteCallApi api = factory.get(transaction.getTargetUrl());
-            if(api != null){
+            if(api == null){
                 transactionCore.failHandle(transaction,api, ErrorCodeType.SYSTEM_EXCEPTION, StringUtil.appendWithUnSafe("未找到url:",transaction.getTargetUrl(),"对应的实现类"));
                 return;
             }

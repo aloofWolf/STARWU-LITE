@@ -7,13 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 
-/**
- * 
-    * @ClassName: MultipartInterceptor
-    * @Description: MultipartInterceptor
-    * @author Lone Wolf
-    * @date 2023年12月15日
- */
 @Component
 public class MultipartInterceptor extends AbstractJackson2HttpMessageConverter {
   

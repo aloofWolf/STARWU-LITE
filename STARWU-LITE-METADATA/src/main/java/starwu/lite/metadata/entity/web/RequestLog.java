@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 import starwu.lite.metadata.enums.web.ResponseResult;
 
 import java.util.Date;

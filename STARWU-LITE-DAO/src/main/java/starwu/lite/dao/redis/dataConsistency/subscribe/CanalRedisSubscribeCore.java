@@ -12,7 +12,7 @@ import starwu.lite.metadata.enums.canal.DbUpdateType;
 @RequiredArgsConstructor
 @Component
 @Slf4j
-public class CanalRedisSubscribeApi implements CanalObserverApi {
+public class CanalRedisSubscribeCore implements CanalObserverApi {
 
     private final CanalRedisFactory factory;
     @Override

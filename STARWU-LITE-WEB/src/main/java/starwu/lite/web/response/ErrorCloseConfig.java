@@ -1,14 +1,9 @@
 package starwu.lite.web.response;
 
-import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 @Configuration
 public class ErrorCloseConfig {
@@ -16,8 +11,6 @@ public class ErrorCloseConfig {
     @Bean
     public ErrorPageRegistrar errorPageRegistrar() {
         return registry -> {
-            // 清空所有错误页面 → 完全禁用错误转发
-            // 空实现 = 不注册任何错误页
         };
     }
 

@@ -1,6 +1,6 @@
 package starwu.lite.distributed.transaction.call.api;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import starwu.lite.metadata.bean.web.ResponseBean;
 import starwu.lite.design.factory.FactoryHandleApi;
 import starwu.lite.distributed.transaction.call.factory.TransactionRemoteCallFactory;

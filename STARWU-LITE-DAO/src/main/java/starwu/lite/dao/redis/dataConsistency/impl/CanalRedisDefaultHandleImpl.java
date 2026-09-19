@@ -1,6 +1,7 @@
 package starwu.lite.dao.redis.dataConsistency.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONReader;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Component;
 import starwu.lite.dao.redis.dataConsistency.api.CanalRedisHandleApi;
 import starwu.lite.metadata.ann.orm.Cache;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
-import starwu.lite.metadata.bean.orm.EntityMetadata;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.bean.dao.EntityMetadata;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -162,6 +163,6 @@ public class CanalRedisDefaultHandleImpl implements CanalRedisHandleApi {
 
     @SuppressWarnings("unchecked")
     public <ENTITY extends BaseEntity> ENTITY parseJsonToEntity(EntityMetadata metadata, JSONObject afterJson) {
-        return (ENTITY) JSONObject.toJavaObject(afterJson, metadata.getEntityCls());
+        return (ENTITY) afterJson.toJavaObject(metadata.getEntityCls(), JSONReader.Feature.SupportSmartMatch);
     }
 }

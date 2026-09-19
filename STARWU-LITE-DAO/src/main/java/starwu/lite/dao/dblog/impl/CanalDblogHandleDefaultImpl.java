@@ -3,7 +3,7 @@ package starwu.lite.dao.dblog.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import starwu.lite.metadata.bean.canal.CanalDataBean;
-import starwu.lite.metadata.entity.orm.canal.DbUpdateLog;
+import starwu.lite.metadata.entity.dao.canal.DbUpdateLog;
 import starwu.lite.metadata.enums.canal.DbUpdateType;
 import starwu.lite.dao.dblog.api.CanalDblogHandleApi;
 import starwu.lite.dao.dblog.dao.DbUpdateLogDao;
@@ -17,7 +17,7 @@ public class CanalDblogHandleDefaultImpl implements CanalDblogHandleApi {
     private final DbUpdateLogDao dao;
     @Override
     public boolean match(String key) {
-        return true;
+        return false;
     }
 
     @Override

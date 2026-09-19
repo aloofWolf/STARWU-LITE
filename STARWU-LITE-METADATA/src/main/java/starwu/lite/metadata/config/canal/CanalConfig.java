@@ -1,7 +1,6 @@
 package starwu.lite.metadata.config.canal;
 
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "starwu.lite.metadata.config.canal")
 public class CanalConfig {
 
-    private boolean tcpEnabled = true; // 是否开启tcp模式从canal拉取数据
+    private boolean tcpEnabled = false; // 是否开启tcp模式从canal拉取数据
 
     private List<CanalItemConfig> tcpHosts = new ArrayList<>();; // canal的host
 
@@ -23,11 +22,11 @@ public class CanalConfig {
 
     private String tcpPassword = ""; // canal的密码
 
-    private String subscribe = "dsq\\..*,!dsq.starwu_db_update_log"; // 订阅的库和表 默认所有
+    private String subscribe; // 订阅的库和表 默认所有
 
-    private int batchSize = 1000; // 一次性从canal拉取多少条数据
+    private int batchSize = 1; // 一次性从canal拉取多少条数据
 
-    private long timeOut = 50000; // 从canal拉取数据的超时时间
+    private long timeOut = 3; // 从canal拉取数据的超时时间
 
     private String handleAsyncThreadName = "default";
 

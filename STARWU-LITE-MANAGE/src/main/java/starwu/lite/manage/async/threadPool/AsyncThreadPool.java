@@ -10,6 +10,7 @@ import starwu.lite.metadata.config.manage.async.AsyncItemConfig;
 import starwu.lite.metadata.enumPlus.EnumPlus;
 import starwu.lite.metadata.enums.common.BooleanType;
 import starwu.lite.metadata.enums.threadPool.ThreadPoolRejectedExecutionHandlerEnum;
+import starwu.lite.util.StringUtil;
 
 import javax.annotation.PostConstruct;
 
@@ -22,6 +23,8 @@ public class AsyncThreadPool {
 	private final AsyncConfig config;
 
 	private final ConfigurableListableBeanFactory beanFactory;
+
+	private final AsyncExceptionHandle asyncExceptionHandle;
 
 	@PostConstruct
 	public void init(){
@@ -53,7 +56,11 @@ public class AsyncThreadPool {
 		t.setQueueCapacity(item.getQueueCapacity());
 		t.setKeepAliveSeconds(item.getKeepAliveSeconds());
 		t.setWaitForTasksToCompleteOnShutdown(EnumPlus.getByID(BooleanType.class, item.getWaitForTasksToCompleteOnShutdown()).isFlag());
-		t.setThreadNamePrefix("baseThread-"+item.getThreadNamePrefix());
+		if(item.getThreadNamePrefix() == null || item.getThreadNamePrefix().length() == 0){
+			t.setThreadNamePrefix(StringUtil.appendWithUnSafe("baseThread-", item.getName(),"-"));
+		}else{
+			t.setThreadNamePrefix(item.getThreadNamePrefix());
+		}
 		t.setRejectedExecutionHandler(EnumPlus.getByID(ThreadPoolRejectedExecutionHandlerEnum.class, item.getRejectedExecutionHandler()).getHandler());
 		t.initialize();
 		beanFactory.registerSingleton(item.getName(), t);

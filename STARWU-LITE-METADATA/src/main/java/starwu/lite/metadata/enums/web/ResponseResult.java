@@ -7,7 +7,7 @@ import starwu.lite.metadata.enumPlus.EnumApi;
 @Getter
 public enum ResponseResult implements EnumApi<Integer> {
 
-	SUCCESS(0, "成功"), FAIL(1, "失败");
+	SUCCESS(0, "成功"), FAIL(1, "失败"),UNKNOWN(2,"未知");
 
 	@EnumValue
 	private Integer id;

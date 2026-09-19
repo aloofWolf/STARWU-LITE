@@ -29,7 +29,10 @@ public abstract class ChainEntryApi<T,V extends ChainHandleApi> {
     public void process(T t){
         for(V v : globalList){
             if(v.isMatch(t)){
-                v.process(t);
+                boolean result = v.process(t);
+                if(!result){
+                    return;
+                }
             }
         }
     }

@@ -1,21 +1,21 @@
-package starwu.lite.metadata.entity.orm.canal;
+package starwu.lite.metadata.entity.dao.canal;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.apache.ibatis.type.JdbcType;
-import starwu.lite.metadata.entity.orm.base.BaseEntity;
+import starwu.lite.metadata.entity.dao.base.BaseEntity;
 
 import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("starwu_db_update_log")
+@TableName("starwu_lite_db_update_log")
 public class DbUpdateLog extends BaseEntity {
 
     private static final long serialVersionUID = -1318569395364768462L;
@@ -30,13 +30,13 @@ public class DbUpdateLog extends BaseEntity {
     private String type; // 变更类型
 
     @TableField(
-            typeHandler = FastjsonTypeHandler.class,
+            typeHandler = Fastjson2TypeHandler.class,
             jdbcType = JdbcType.VARCHAR
     )
     private JSONObject befores; // 变更前
 
     @TableField(
-            typeHandler = FastjsonTypeHandler.class,
+            typeHandler = Fastjson2TypeHandler.class,
             jdbcType = JdbcType.VARCHAR
     )
     private JSONObject afters; // 变更后

@@ -1,6 +1,6 @@
 package starwu.lite.distributed.transaction.core;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import starwu.lite.metadata.constant.plus.threadLocal.ThreadLocalKey;
@@ -13,7 +13,7 @@ import starwu.lite.distributed.transaction.dao.TransactionLogDao;
 import starwu.lite.metadata.enums.distributed.transaction.CallTimeType;
 import starwu.lite.metadata.enums.web.ErrorCodeType;
 import starwu.lite.metadata.enums.web.ResponseResult;
-import starwu.lite.manage.threadLocal.ThreadLocalPlus;
+import starwu.lite.manage.threadLocal.ThreadLocalCore;
 
 import java.util.Date;
 
@@ -28,12 +28,12 @@ public class TransactionCore {
         Transaction transaction = new Transaction();
         JSONObject paramJson = null;
         if(param != null) {
-            paramJson = JSONObject.parseObject(param.toString());
+            paramJson = JSONObject.parseObject(JSONObject.toJSONString(param));
         }
 
-        RequestLog requestLog = ThreadLocalPlus.get(ThreadLocalKey.REQUEST_LOG_KEY);
+        RequestLog requestLog = ThreadLocalCore.get(ThreadLocalKey.REQUEST_LOG_KEY);
         if(requestLog != null) {
-            transaction.setCode(requestLog.getCode());
+            transaction.setRequestCode(requestLog.getCode());
             transaction.setSourceUrl(requestLog.getUrl());
             transaction.setUserId(requestLog.getUserId());
 
@@ -59,7 +59,9 @@ public class TransactionCore {
         transaction.setCallCount(transaction.getCallCount() + 1);
         transaction.setCallTime(new Date());
         transaction.setResult(ResponseResult.FAIL);
-        if(transaction.getCallCount() >= api.retryCount()){
+        transaction.setErrCode(errorCode);
+        transaction.setErrMsg(errorMsg);
+        if(api == null || transaction.getCallCount() >= api.retryCount()){
             transaction.setCallTimeType(CallTimeType.NONE);
         }else{
             transaction.setCallTimeType(CallTimeType.SCHEDULED);

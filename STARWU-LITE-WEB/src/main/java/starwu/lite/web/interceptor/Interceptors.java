@@ -6,6 +6,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import starwu.lite.metadata.config.web.WebConfig;
 import starwu.lite.web.interceptor.outer.SessionInterceptor;
 import starwu.lite.web.interceptor.outer.ThreadLocalInterceptor;
 import starwu.lite.web.log.interceptor.RequestLogInterceptor;
@@ -29,6 +30,7 @@ public class Interceptors extends WebMvcConfigurationSupport {
 	private final ThreadLocalInterceptor threadLocalInterceptor;
 	private final RequestLogInterceptor requestLogInterceptor;
 	private final MultipartInterceptor multipartInterceptor;
+	private final WebConfig webConfig;
 
 
 	/**
@@ -45,10 +47,12 @@ public class Interceptors extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
+		List<String> requestLogInterceptorPatterns = new ArrayList<>();
+		requestLogInterceptorPatterns.addAll(webConfig.getAllExcludeRecordLogUrls());
 		List<String> sessionInterceptorPatterns = new ArrayList<>();
 		sessionInterceptorPatterns.addAll(sessionInterceptor.getExcexcludeUrls());
 		registry.addInterceptor(threadLocalInterceptor).addPathPatterns("/**");
-		registry.addInterceptor(requestLogInterceptor).addPathPatterns("/**");
+		registry.addInterceptor(requestLogInterceptor).addPathPatterns("/**").excludePathPatterns(requestLogInterceptorPatterns);
 		registry.addInterceptor(sessionInterceptor).addPathPatterns("/**").excludePathPatterns(sessionInterceptorPatterns);
 	}
 	

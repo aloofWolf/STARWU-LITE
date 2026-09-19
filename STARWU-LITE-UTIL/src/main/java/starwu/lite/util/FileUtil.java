@@ -2,7 +2,6 @@ package starwu.lite.util;
 
 import lombok.SneakyThrows;
 
-import java.io.File;
 import java.io.FileWriter;
 
 /**

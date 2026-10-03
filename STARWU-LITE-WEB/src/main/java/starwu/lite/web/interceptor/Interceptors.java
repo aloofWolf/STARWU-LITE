@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import starwu.lite.metadata.config.web.WebConfig;
 import starwu.lite.web.interceptor.outer.SessionInterceptor;
 import starwu.lite.web.interceptor.outer.ThreadLocalInterceptor;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Configuration
 @RequiredArgsConstructor
-public class Interceptors extends WebMvcConfigurationSupport {
+public class Interceptors implements WebMvcConfigurer {
 
 	private final SessionInterceptor sessionInterceptor;
 	private final ThreadLocalInterceptor threadLocalInterceptor;
@@ -37,8 +37,7 @@ public class Interceptors extends WebMvcConfigurationSupport {
 	 * 自定义转换器
 	 */
 	@Override
-	protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		super.configureMessageConverters(converters);
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(multipartInterceptor);
 	}
 
@@ -46,7 +45,7 @@ public class Interceptors extends WebMvcConfigurationSupport {
 	 * 自定义拦截器
 	 */
 	@Override
-	protected void addInterceptors(InterceptorRegistry registry) {
+	public void addInterceptors(InterceptorRegistry registry) {
 		List<String> requestLogInterceptorPatterns = new ArrayList<>();
 		requestLogInterceptorPatterns.addAll(webConfig.getAllExcludeRecordLogUrls());
 		List<String> sessionInterceptorPatterns = new ArrayList<>();
@@ -64,7 +63,6 @@ public class Interceptors extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		registry.addResourceHandler("/swagger-resources").addResourceLocations("classpath:/META-INF/resources/swagger-resources");
-		super.addResourceHandlers(registry);
     }
 
 

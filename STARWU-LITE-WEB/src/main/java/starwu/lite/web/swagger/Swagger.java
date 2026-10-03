@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EnableConfigurationProperties(SwaggerConfig.class)
 @ConditionalOnClass({Docket.class, ApiInfo.class})
 @Configuration
 @EnableSwagger2
@@ -67,25 +66,6 @@ public class Swagger {
                 }
             } catch (UnknownHostException e) {
                 log.error(e.getMessage(), e);
-            }
-        };
-    }
-
-    // 配置静态资源
-    @Bean
-    public WebMvcConfigurer configResource() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-                registry.addResourceHandler("swagger-ui.html")
-                        .addResourceLocations("classpath:/META-INF/resources/");
-                registry.addResourceHandler("/favicon.ico")
-                        .addResourceLocations("classpath:/META-INF/resources/static/favicon.ico");
-                registry.addResourceHandler("/webjars/**")
-                        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-                registry.addResourceHandler("doc.html")
-                        .addResourceLocations("classpath:/META-INF/resources/");
             }
         };
     }

@@ -34,7 +34,8 @@ import starwu.lite.web.swagger.Swagger;
         ErrorCloseConfig.class,
         ResponseExceptionsInterceptor.class,
         ResponseUnifyInterceptor.class,
-        Swagger.class})
+        Swagger.class,
+        SpringUtil.class})
 public class WebBeanScan {
 
     @Bean

@@ -13,6 +13,7 @@ import starwu.lite.metadata.config.web.SwaggerConfig;
 import starwu.lite.metadata.config.web.WebConfig;
 import starwu.lite.metadata.config.web.WebExcludeRecordLogConfig;
 import starwu.lite.metadata.config.web.WebExcludeUnifyRespConfig;
+import starwu.lite.util.SpringUtil;
 
 @Configuration
 @Import({CanalConfig.class,
@@ -25,6 +26,7 @@ import starwu.lite.metadata.config.web.WebExcludeUnifyRespConfig;
         SwaggerConfig.class,
         WebConfig.class,
         WebExcludeRecordLogConfig.class,
-        WebExcludeUnifyRespConfig.class})
+        WebExcludeUnifyRespConfig.class,
+        SpringUtil.class})
 public class MetadataBeanScan {
 }

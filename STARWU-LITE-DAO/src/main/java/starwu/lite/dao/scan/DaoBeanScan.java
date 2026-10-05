@@ -20,6 +20,7 @@ import starwu.lite.dao.redis.cooperation.RedisCooperationCore;
 import starwu.lite.dao.redis.dataConsistency.factory.CanalRedisFactory;
 import starwu.lite.dao.redis.dataConsistency.impl.CanalRedisDefaultHandleImpl;
 import starwu.lite.dao.redis.dataConsistency.subscribe.CanalRedisSubscribeCore;
+import starwu.lite.util.SpringUtil;
 
 @Configuration
 @Import({CanalDblogFactory.class,
@@ -34,7 +35,8 @@ import starwu.lite.dao.redis.dataConsistency.subscribe.CanalRedisSubscribeCore;
         RedisCooperationCore.class,
         CanalRedisFactory.class,
         CanalRedisDefaultHandleImpl.class,
-        CanalRedisSubscribeCore.class
+        CanalRedisSubscribeCore.class,
+        SpringUtil.class
 })
 public class DaoBeanScan {
 

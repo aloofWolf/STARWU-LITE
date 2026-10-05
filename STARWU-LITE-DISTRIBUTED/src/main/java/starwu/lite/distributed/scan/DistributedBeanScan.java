@@ -13,6 +13,7 @@ import starwu.lite.distributed.transaction.core.TransactionCore;
 import starwu.lite.distributed.transaction.dao.TransactionDao;
 import starwu.lite.distributed.transaction.dao.TransactionLogDao;
 import starwu.lite.distributed.transaction.scheduledTask.ScheduledTask;
+import starwu.lite.util.SpringUtil;
 
 @Configuration
 @Import({SessionCore.class,
@@ -20,7 +21,8 @@ import starwu.lite.distributed.transaction.scheduledTask.ScheduledTask;
         TransactionRemoteCallFactory.class,
         CanalTransactionSubscribeCore.class,
         TransactionCore.class,
-        ScheduledTask.class
+        ScheduledTask.class,
+        SpringUtil.class
 })
 public class DistributedBeanScan {
 

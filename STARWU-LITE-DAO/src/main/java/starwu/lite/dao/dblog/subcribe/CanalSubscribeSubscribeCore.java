@@ -16,7 +16,7 @@ public class CanalSubscribeSubscribeCore implements CanalObserverApi {
     private final CanalDblogFactory factory;
     @Override
     public boolean isReceived(CanalDataBean canalDataBean) {
-        return true;
+        return !"starwu_lite_db_update_log".equals(canalDataBean.getTableName());
     }
 
     @Override
